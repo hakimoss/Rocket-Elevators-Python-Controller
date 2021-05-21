@@ -20,7 +20,8 @@ class Column:
       self.elevatorsList.append(Elevator(i + 1, self.amountOfFloors, 10, 5))
 ############### INITIALISER LES ÉTAGES ################
     self.elevatorsList[0].idle = 2  
-    self.elevatorsList[1].idle = 8
+    self.elevatorsList[1].idle = 6
+    """ self.elevatorsList[2].idle = 8 """
 ############### CREATION DU SCORE ################
     for i in range(-1, (len(self.elevatorsList) - 1)):
       i = i + 1
