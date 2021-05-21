@@ -20,7 +20,7 @@ class Column:
       self.elevatorsList.append(Elevator(i + 1, self.amountOfFloors, 10, 5))
 ############### INITIALISER LES ÉTAGES ################
     self.elevatorsList[0].idle = 2  
-    self.elevatorsList[1].idle = 9
+    self.elevatorsList[1].idle = 8
 ############### CREATION DU SCORE ################
     for i in range(-1, (len(self.elevatorsList) - 1)):
       i = i + 1
@@ -47,7 +47,7 @@ class Column:
 
     print(f'elevator : {selectedElevator}')
  
-############### REGLE ET SELECTION ################
+############### MOUVEMENT DE L'ASCENCEUR ################
 
     if selectedElevator.currentFloor < requestedFloor:
       selectedElevator.status = 'moving'
@@ -63,6 +63,7 @@ class Column:
       selectedElevator.direction = 'down'
       print(f"Elevator {selectedElevator.ID} is {selectedElevator.status} {selectedElevator.direction}")
       distance = selectedElevator.currentFloor - requestedFloor
+
       for i in range(i - 1, distance):
               selectedElevator.currentFloor = selectedElevator.currentFloor - 1
               print(f"Floor : {selectedElevator.currentFloor}")
@@ -91,9 +92,91 @@ class Elevator:
     self.score = 0
 
   def requestFloor(self, requestedFloor):
-    print('dans la function requested floor ')  
-    print(requestedFloor)
-    print(self.currentFloor)
+    """ print(requestedFloor)
+    print(self.currentFloor) """
+############### CRÉATION DES REQUETTE D'ÉTAGE ################
+    for i in range(-1, len(self.floorRequestList)):
+      i = i + 1
+      idFloorRequest = i
+
+    self.floorRequestList.append(FloorRequestButton(idFloorRequest , requestedFloor))
+    print(f"Floor {self.floorRequestList[0].floor} is selected")
+
+############### FERMETURE DE PORTE A PARTIR DE L'INTERIEUR ################
+
+    self.door = 'closed'
+    print(f"The door is {self.door}")
+
+############### MOUVEMENT DE L'ASCENCEUR A PARTIR DE L'INTERIEUR ################
+
+    self.status = 'moving'
+
+    if self.currentFloor < requestedFloor:
+      self.status = 'moving'
+      self.direction = 'up'
+      print(f"Elevator {self.ID} is {self.status} {self.direction}")
+
+      for self.currentFloor in range(self.currentFloor, requestedFloor):
+        self.currentFloor = self.currentFloor + 1
+        print(f"Floor : {self.currentFloor}")
+
+    else:
+      self.status = 'moving'
+      self.direction = 'down'
+      print(f"Elevator {self.ID} is {self.status} {self.direction}")
+      distance = self.currentFloor - requestedFloor
+      
+      for i in range(i, distance):
+              self.currentFloor = self.currentFloor - 1
+              print(f"Floor : {self.currentFloor}")
+
+############### OUVERTURE DE PORTE A PARTIR DE L'INTERIEUR ################
+
+    self.direction = 'idle'
+    self.status = 'on idle'
+    self.door = 'open'
+
+    print(f"Elevator {self.ID} is {self.status}")
+    print(f"The door is {self.door}")
+
+############### RETOUR A SON EMPLACEMENT INITIAL ################
+
+    self.door = 'closed'
+    print(f"The door is {self.door}")
+    self.status = 'moving'
+
+    self.status = 'moving'
+
+    if self.currentFloor < self.idle:
+      
+      self.direction = 'up'
+      print(f"Elevator {self.ID} is {self.status} {self.direction}")
+
+      for self.currentFloor in range(self.currentFloor, self.idle):
+        self.currentFloor = self.currentFloor + 1
+        print(f"Floor : {self.currentFloor}")
+
+    else:
+      self.status = 'moving'
+      self.direction = 'down'
+      print(f"Elevator {self.ID} is {self.status} {self.direction}")
+      distance = self.currentFloor - self.idle
+      
+      for i in range(i, distance):
+              self.currentFloor = self.currentFloor - 1
+              print(f"Floor : {self.currentFloor}")
+    
+############### RETOUR A SON EMPLACEMENT INITIAL ################
+
+    self.direction = 'idle'
+    self.status = 'on idle'
+    self.door = 'open'
+    self.floorRequestList = []
+
+    print(f"Elevator {self.ID} is {self.status}")
+    print(f"The door is {self.door}")
+
+
 
 class Door:
   def __init__(self, _id):
@@ -114,7 +197,7 @@ class FloorRequestButton:
     self.floor = _floor
 
 
-#               scénario 1
+#               scénario
 
 
 column1 = Column(1, 10, 2)
@@ -124,5 +207,5 @@ column1 = Column(1, 10, 2)
 
 
 column1.requestElevator(6, 'up')
-column1.elevatorInAction.requestFloor(2)
+column1.elevatorInAction.requestFloor(10)
 
